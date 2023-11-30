@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajouter un auteur{% endblock %}
+{% block title %}Ajouter un livre{% endblock %}
 
 {% block body %}
-    <h1>Ajouter un auteur</h1>
+    <h1>Ajouter un livre</h1>
     <section class="py-3">
-        {% include('frontend/author/_form.html.twig') %}
+        {% include('frontend/book/_form.html.twig') %}
     </section>
 
     <section class="py-3">
         <div class="row">
             <div class="col">
-                <a class="btn btn-secondary" href="{{ path('app.authors') }}">Retour à la liste</a>
+                <a class="btn btn-secondary" href="{{ path('app.books') }}">Retour à la liste</a>
             </div>
         </div>
     <section class="py-3">

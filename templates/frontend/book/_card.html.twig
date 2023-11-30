@@ -1,0 +1,31 @@
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">{{ book.name }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">id : {{ book.id }}</h6>
+        <p class="card-text">{{ book.enabled ? 'Activé' : 'Désactivé' }}</p>
+        <p class="card-text">{{ book.description | nl2br }}</p>
+        {% if book.author %}
+            <p class="card-text">Auteur : <a href="{{ path('app.authors.show', { 'id': book.author.id }) }}">{{ book.author.fullName }}</a></p>
+        {% endif %}
+        {% if book.categories %}
+            <p class="card-text">Catégories :
+                {% for category in book.categories %}
+                    <a href="{{ path('app.categories.show', { 'id': category.id }) }}">{{ category.label }}</a>
+                    {% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </p>
+        {% endif %}
+        <p class="card-text">Date de publication : {{ book.releaseDate|format_datetime('full', 'none') }}</p>
+        <p class="card-text">Nombre de pages : {{ book.nbPages }}</p>
+        <p class="card-text">ISBN : {{ book.isbn }}</p>
+        <p class="card-text">Publiée le {{ book.createdAt|format_datetime('full', 'short') }}</p>
+        <p class="card-text">Modifiée le {{ book.updatedAt|format_datetime('full', 'short') }}</p>
+        <div class="d-flex gap-2">
+            {% if full == false %}
+                <a href="{{ path('app.books.show', { 'id': book.id }) }}" class="btn btn-primary">Détails</a>
+            {% endif %}
+            <a href="{{ path('app.books.edit', { 'id': book.id }) }}" class="btn btn-warning">Modifier</a>
+            {% include('frontend/book/_deleteForm.html.twig') %}
+        </div>
+    </div>
+</div>

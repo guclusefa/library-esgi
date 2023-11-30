@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les livres{% endblock %}
+
+{% block body %}
+    <h1>Les livres</h1>
+    <section class="py-3">
+        <div class="row">
+            <div class="col">
+                <a class="btn btn-secondary" href="{{ path('app.books.create') }}">Ajouter une catégorie</a>
+            </div>
+        </div>
+    </section>
+    <section class="py-3">
+        {% include 'frontend/book/_list.html.twig' with { books: books } %}
+    </section>
+{% endblock %}
