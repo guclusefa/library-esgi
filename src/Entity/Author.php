@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Author
 {
     use Traits\TimeStampTrait;
-    
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

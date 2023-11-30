@@ -16,8 +16,18 @@ class BookType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
-            ->add('description')
+            ->add('name' , null, [
+                'label' => 'Nom du livre',
+                'attr' => [
+                    'placeholder' => 'Nom du livre'
+                ]
+            ])
+            ->add('description', null, [
+                'label' => 'Description',
+                'attr' => [
+                    'placeholder' => 'Description'
+                ]
+            ])
             ->add('author', EntityType::class, [
                 'class' => Author::class,
                 'choice_label' => 'fullname',
@@ -49,10 +59,31 @@ class BookType extends AbstractType
                 'by_reference' => false,
                 'required' => false,
             ])
-            ->add('releaseDate')
-            ->add('nbPages')
-            ->add('ISBN')
-            ->add('enabled')
+            ->add('releaseDate', null, [
+                'label' => 'Date de sortie',
+                'attr' => [
+                    'placeholder' => 'Date de sortie'
+                ],
+                'widget' => 'single_text'
+            ])
+            ->add('nbPages', null, [
+                'label' => 'Nombre de pages',
+                'attr' => [
+                    'placeholder' => 'Nombre de pages'
+                ]
+            ])
+            ->add('ISBN', null, [
+                'label' => 'ISBN',
+                'attr' => [
+                    'placeholder' => 'ISBN'
+                ]
+            ])
+            ->add('enabled', null, [
+                'label' => 'Activer le livre',
+                'attr' => [
+                    'class' => 'form-check-input'
+                ]
+            ])
         ;
     }
 
