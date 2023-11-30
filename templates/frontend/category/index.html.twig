@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les catégories{% endblock %}
+
+{% block body %}
+    <h1>Les catégories</h1>
+    <section class="py-3">
+        <div class="row">
+            <div class="col">
+                <a class="btn btn-secondary" href="{{ path('app.categories.create') }}">Ajouter une catégorie</a>
+            </div>
+        </div>
+    </section>
+    <section class="py-3">
+        {% include 'frontend/category/_list.html.twig' with { categories: categories } %}
+    </section>
+{% endblock %}
