@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: AuthorRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -20,18 +21,24 @@ class Author
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank (message: 'Le prénom est obligatoire.')]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank (message: 'Le nom est obligatoire.')]
     private ?string $lastname = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Assert\Length(max: 5000 , maxMessage: 'La biographie ne doit pas dépasser {{ limit }} caractères.')]
     private ?string $biography = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    #[Assert\LessThanOrEqual(value: 'today', message: 'La date de naissance ne peut pas être dans le futur.')]
+    #[Assert\LessThanOrEqual(value: '-10 years', message: 'L\'auteur doit avoir au moins 10 ans.')]
     private ?\DateTimeInterface $birthDate = null;
 
     #[ORM\Column(length: 5, nullable: true)]
+    #[Assert\Length(max: 5 , maxMessage: 'Le pays d\'origine ne doit pas dépasser {{ limit }} caractères.')]
     private ?string $origin = null;
 
     #[ORM\Column]

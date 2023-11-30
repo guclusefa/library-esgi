@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: BookRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -20,18 +21,26 @@ class Book
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank (message: 'Le nom du livre est obligatoire.')]
+    #[Assert\Length(max: 255 , maxMessage: 'Le titre ne doit pas dépasser {{ limit }} caractères.')]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Assert\Length(max: 5000 , maxMessage: 'La description ne doit pas dépasser {{ limit }} caractères.')]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\NotBlank (message: 'La date de sortie est obligatoire.')]
+    #[Assert\LessThanOrEqual(value: 'today', message: 'La date de sortie ne peut pas être dans le futur.')]
     private ?\DateTimeInterface $releaseDate = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank (message: 'Le nombre de pages est obligatoire.')]
+    #[Assert\Positive (message: 'Le nombre de pages doit être positif.')]
     private ?int $nbPages = null;
 
     #[ORM\Column(length: 13, nullable: true)]
+    #[Assert\Length(min: 10, max: 13, minMessage: 'L\'ISBN doit contenir au moins {{ limit }} caractères.', maxMessage: 'L\'ISBN ne doit pas dépasser {{ limit }} caractères.')]
     private ?string $ISBN = null;
 
     #[ORM\Column]
@@ -39,6 +48,7 @@ class Book
 
     #[ORM\ManyToOne(inversedBy: 'books')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank (message: 'L\'auteur est obligatoire.')]
     private ?Author $author = null;
 
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'books')]

@@ -22,8 +22,8 @@ class Category
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank]
-    #[Assert\Length(max: 255)]
+    #[Assert\NotBlank (message: 'Le libellé est obligatoire.')]
+    #[Assert\Length(max: 255 , maxMessage: 'Le libellé ne doit pas dépasser {{ limit }} caractères.')]
     private ?string $label = null;
 
     #[ORM\Column]
