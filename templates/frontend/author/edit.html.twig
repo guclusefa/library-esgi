@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier la catégorie : {{ category.label }}{% endblock %}
+{% block title %}Modifier l'auteur : {{ author.fullName }}{% endblock %}
 
 {% block body %}
-    <h1>Modifier la catégorie : {{ category.label }}</h1>
+    <h1>Modifier l'auteur : {{ author.fullName }}</h1>
     <section class="py-3">
-        {% include('frontend/category/_form.html.twig') with {'button_label': 'Modifier'} %}
+        {% include('frontend/author/_form.html.twig') with {'button_label': 'Modifier'} %}
     </section>
 
     <section class="py-3">
         <div class="row">
             <div class="col">
-                <a class="btn btn-secondary" href="{{ path('app.categories') }}">Retour à la liste</a>
+                <a class="btn btn-secondary" href="{{ path('app.authors') }}">Retour à la liste</a>
             </div>
         </div>
     <section class="py-3">

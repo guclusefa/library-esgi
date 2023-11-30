@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ category.label }}{% endblock %}
+{% block title %}{{ author.fullName }}{% endblock %}
 
 {% block body %}
-    {% include 'frontend/category/_card.html.twig' with { category: category, full: true } %}
+    {% include 'frontend/author/_card.html.twig' with { author: author, full: true } %}
 {% endblock %}
 

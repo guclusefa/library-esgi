@@ -1,7 +1,7 @@
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-4">
-    {% for category in categories %}
+    {% for author in authors %}
         <div class="col">
-            {% include 'frontend/category/_card.html.twig' with { 'category': category, 'full': false } %}
+            {% include 'frontend/author/_card.html.twig' with { 'author': author, 'full': false } %}
         </div>
     {% endfor %}
 </div>

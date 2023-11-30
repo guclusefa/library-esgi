@@ -151,4 +151,21 @@ class Author
 
         return $this;
     }
+
+    public function getFullName(): string
+    {
+        return $this->firstname . ' ' . $this->lastname;
+    }
+
+    public function getAge(): ?int
+    {
+        if ($this->birthDate === null) {
+            return null;
+        }
+
+        $now = new \DateTime();
+        $interval = $now->diff($this->birthDate);
+
+        return $interval->y;
+    }
 }

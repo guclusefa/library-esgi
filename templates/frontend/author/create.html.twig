@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Créer une catégorie{% endblock %}
+{% block title %}Créer un auteur{% endblock %}
 
 {% block body %}
-    <h1>Créer une catégorie</h1>
+    <h1>Créer un auteur</h1>
     <section class="py-3">
-        {% include('frontend/category/_form.html.twig') %}
+        {% include('frontend/author/_form.html.twig') %}
     </section>
 
     <section class="py-3">
         <div class="row">
             <div class="col">
-                <a class="btn btn-secondary" href="{{ path('app.categories') }}">Retour à la liste</a>
+                <a class="btn btn-secondary" href="{{ path('app.authors') }}">Retour à la liste</a>
             </div>
         </div>
     <section class="py-3">

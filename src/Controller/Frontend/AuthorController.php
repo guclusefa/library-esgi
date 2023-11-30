@@ -4,9 +4,9 @@ namespace App\Controller\Frontend;
 
 use App\Constants\RouteConstants;
 use App\Constants\ToastConstants;
-use App\Entity\Category;
-use App\Form\CategoryType;
-use App\Repository\CategoryRepository;
+use App\Entity\Author;
+use App\Form\AuthorType;
+use App\Repository\AuthorRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -14,100 +14,100 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/categories')]
-class CategoryController extends AbstractController
+#[Route('/authors')]
+class AuthorController extends AbstractController
 {
     public function __construct
     (
-        private readonly CategoryRepository $categoryRepository,
+        private readonly AuthorRepository $authorRepository,
         private readonly EntityManagerInterface $em
     )
     {
     }
 
-    private function checkCategory(?Category $category): void
+    private function checkAuthor(?Author $author): void
     {
-        if (!$category instanceof Category) {
-            $this->addFlash(ToastConstants::TOAST_ERROR, 'La catégorie n\'existe pas');
-            throw $this->createNotFoundException('La catégorie n\'existe pas');
+        if (!$author instanceof Author) {
+            $this->addFlash(ToastConstants::TOAST_ERROR, 'L\'auteur n\'existe pas');
+            throw $this->createNotFoundException('L\'auteur n\'existe pas');
         }
     }
 
-    #[Route('', name: RouteConstants::ROUTE_CATEGORIES, methods: ['GET'])]
+    #[Route('', name: RouteConstants::ROUTE_AUTHORS, methods: ['GET'])]
     public function index(): Response
     {
-        return $this->render('frontend/category/index.html.twig', [
-            'categories' => $this->categoryRepository->findAll(),
+        return $this->render('frontend/author/index.html.twig', [
+            'authors' => $this->authorRepository->findAll(),
         ]);
     }
 
-    #[Route('/create', name: RouteConstants::ROUTE_CATEGORIES_CREATE, methods: ['GET', 'POST'])]
+    #[Route('/create', name: RouteConstants::ROUTE_AUTHORS_CREATE, methods: ['GET', 'POST'])]
     public function create(Request $request): Response|RedirectResponse
     {
-        $category = new Category();
+        $author = new Author();
 
-        $form = $this->createForm(CategoryType::class, $category);
+        $form = $this->createForm(AuthorType::class, $author);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->em->persist($category);
+            $this->em->persist($author);
             $this->em->flush();
-            $this->addFlash(ToastConstants::TOAST_SUCCESS, 'La catégorie a bien été créée');
+            $this->addFlash(ToastConstants::TOAST_SUCCESS, 'L\'auteur a bien été créé');
 
-            return $this->redirectToRoute(RouteConstants::ROUTE_CATEGORIES);
+            return $this->redirectToRoute(RouteConstants::ROUTE_AUTHORS);
         }
 
-        return $this->render('frontend/category/create.html.twig', [
+        return $this->render('frontend/author/create.html.twig', [
             'form' => $form
         ]);
     }
 
-    #[Route('/{id}', name: RouteConstants::ROUTE_CATEGORIES_SHOW, methods: ['GET'])]
-    public function show(?Category $category): Response
+    #[Route('/{id}', name: RouteConstants::ROUTE_AUTHORS_SHOW, methods: ['GET'])]
+    public function show(?Author $author): Response
     {
-        $this->checkCategory($category);
-        return $this->render('frontend/category/show.html.twig', [
-            'category' => $category,
+        $this->checkAuthor($author);
+        return $this->render('frontend/author/show.html.twig', [
+            'author' => $author,
         ]);
     }
 
-    #[Route('/{id}/edit', name: RouteConstants::ROUTE_CATEGORIES_EDIT, methods: ['GET', 'POST'])]
-    public function edit(Request $request, ?Category $category): Response|RedirectResponse
+    #[Route('/{id}/edit', name: RouteConstants::ROUTE_AUTHORS_EDIT, methods: ['GET', 'POST'])]
+    public function edit(Request $request, ?Author $author): Response|RedirectResponse
     {
-        $this->checkCategory($category);
+        $this->checkAuthor($author);
 
-        $form = $this->createForm(CategoryType::class, $category);
+        $form = $this->createForm(AuthorType::class, $author);
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 $this->em->flush();
-                $this->addFlash(ToastConstants::TOAST_SUCCESS, 'La catégorie a bien été modifiée');
+                $this->addFlash(ToastConstants::TOAST_SUCCESS, 'L\'auteur a bien été modifié');
 
-                return $this->redirectToRoute(RouteConstants::ROUTE_CATEGORIES);
+                return $this->redirectToRoute(RouteConstants::ROUTE_AUTHORS);
             }
-            $this->addFlash(ToastConstants::TOAST_ERROR, 'La catégorie n\'a pas pu être modifiée');
+            $this->addFlash(ToastConstants::TOAST_ERROR, 'L\'auteur n\'a pas pu être modifié');
         }
 
-        return $this->render('frontend/category/edit.html.twig', [
+        return $this->render('frontend/author/edit.html.twig', [
             'form' => $form,
-            'category' => $category
+            'author' => $author
         ]);
     }
 
-    #[Route('/{id}', name: RouteConstants::ROUTE_CATEGORIES_DELETE, methods: ['POST'])]
-    public function delete(Request $request, ?Category $category): Response|RedirectResponse
+    #[Route('/{id}', name: RouteConstants::ROUTE_AUTHORS_DELETE, methods: ['POST'])]
+    public function delete(Request $request, ?Author $author): Response|RedirectResponse
     {
-        $this->checkCategory($category);
+        $this->checkAuthor($author);
 
-        if ($this->isCsrfTokenValid('delete' . $category->getId(), $request->request->get('_token'))) {
-            $this->em->remove($category);
+        if ($this->isCsrfTokenValid('delete' . $author->getId(), $request->request->get('_token'))) {
+            $this->em->remove($author);
             $this->em->flush();
-            $this->addFlash(ToastConstants::TOAST_SUCCESS, 'La catégorie a bien été supprimée');
+            $this->addFlash(ToastConstants::TOAST_SUCCESS, 'L\'auteur a bien été supprimé');
         } else {
-            $this->addFlash(ToastConstants::TOAST_ERROR, 'La catégorie n\'a pas pu être supprimée');
+            $this->addFlash(ToastConstants::TOAST_ERROR, 'L\'auteur n\'a pas pu être supprimé');
         }
 
-        return $this->redirectToRoute(RouteConstants::ROUTE_CATEGORIES);
+        return $this->redirectToRoute(RouteConstants::ROUTE_AUTHORS);
     }
 }
