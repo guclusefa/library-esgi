@@ -4,5 +4,10 @@
 
 {% block body %}
     {% include 'frontend/author/_card.html.twig' with { author: author, full: true } %}
+    <section class="py-3">
+        <hr>
+        <h1> Les livres de l'auteur ({{ books.count() }}) </h1>
+        {% include 'frontend/book/_list.html.twig' with { books: books } %}
+    </section>
 {% endblock %}
 

@@ -11,4 +11,19 @@
             </div>
         </div>
     </section>
+    <section class="py-3">
+        <hr>
+        <h1> Les 3 derniers livres ajoutés</h1>
+        {% include 'frontend/book/_list.html.twig' with { books: books } %}
+    </section>
+    <section class="py-3">
+        <hr>
+        <h1> Les 3 derniers auteurs ajoutés</h1>
+        {% include 'frontend/author/_list.html.twig' with { authors: authors } %}
+    </section>
+    <section class="py-3">
+        <hr>
+        <h1> Les 3 dernières catégories ajoutées</h1>
+        {% include 'frontend/category/_list.html.twig' with { categories: categories } %}
+    </section>
 {% endblock %}

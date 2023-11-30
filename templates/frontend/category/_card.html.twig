@@ -2,7 +2,11 @@
     <div class="card-body">
         <h5 class="card-title">{{ category.label }}</h5>
         <h6 class="card-subtitle mb-2 text-muted">id : {{ category.id }}</h6>
-        <p class="card-text">{{ category.enabled ? 'Activé' : 'Désactivé' }}</p>
+        <p class="card-text">
+            <span class="badge bg-{{ category.enabled ? 'success' : 'danger' }}">
+                {{ category.enabled ? 'Activée' : 'Désactivée' }}
+            </span>
+        </p>
         <p class="card-text">Publiée le {{ category.createdAt|format_datetime('full', 'short') }}</p>
         <p class="card-text">Modifiée le {{ category.updatedAt|format_datetime('full', 'short') }}</p>
         <div class="d-flex gap-2">

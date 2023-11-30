@@ -2,7 +2,11 @@
     <div class="card-body">
         <h5 class="card-title">{{ author.fullName }}</h5>
         <h6 class="card-subtitle mb-2 text-muted">id : {{ author.id }}</h6>
-        <p class="card-text">{{ author.enabled ? 'Activé' : 'Désactivé' }}</p>
+        <p class="card-text">
+            <span class="badge bg-{{ author.enabled ? 'success' : 'danger' }}">
+                {{ author.enabled ? 'Activé' : 'Désactivé' }}
+            </span>
+        </p>
         <p class="card-text">Biographie : {{ author.biography }}</p>
         <p class="card-text">Date de naissance : {{ author.birthDate|format_datetime('full', 'none') }} ({{ author.age }} ans)</p>
         <p class="card-text">Origine : {{ author.origin }}</p>

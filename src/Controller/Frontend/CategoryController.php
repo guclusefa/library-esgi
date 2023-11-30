@@ -66,8 +66,10 @@ class CategoryController extends AbstractController
     public function show(?Category $category): Response
     {
         $this->checkCategory($category);
+        $books = $category->getBooks();
         return $this->render('frontend/category/show.html.twig', [
             'category' => $category,
+            'books' => $books
         ]);
     }
 

@@ -66,8 +66,10 @@ class AuthorController extends AbstractController
     public function show(?Author $author): Response
     {
         $this->checkAuthor($author);
+        $books = $author->getBooks();
         return $this->render('frontend/author/show.html.twig', [
             'author' => $author,
+            'books' => $books
         ]);
     }
 
